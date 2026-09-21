@@ -1,0 +1,32 @@
+STEP 35 - FINAL AVNET YAW REFERENCE DATASET
+======================================================================
+
+Total valid samples: 105,048
+Input shape: (105048, 10, 6)
+Target shape: (105048, 3)
+
+Input channels:
+1. Accelerometer X
+2. Accelerometer Y
+3. Accelerometer Z
+4. Gyroscope X
+5. Gyroscope Y
+6. Gyroscope Z
+
+Sampling frequency: 10 Hz
+Window duration: 1 second
+Samples per window: 10
+
+Target:
+Yaw-only quaternion change [qx,qy,qz]
+qx = 0
+qy = 0
+qz = sin(delta_yaw/2)
+
+Reference source:
+Dataset-derived yaw reference from Steps 33-34.
+This is an adaptation for the dataset and is NOT the original paper's external attitude ground truth.
+
+Missing S files: 0
+Invalid windows: 0
+Shape errors: 0

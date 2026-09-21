@@ -1,0 +1,25 @@
+STEP 31 - CONTINUOUS RELIABILITY ANALYSIS
+======================================================================
+
+Total windows: 107,043
+Moving windows >=5 km/h: 92,276
+
+MOST RELIABLE SOURCE COUNTS
+----------------------------------------------------------------------
+GNSS: 75705 (82.04%)
+HEADING: 14345 (15.55%)
+YAWRATE: 2226 (2.41%)
+
+RELIABILITY SCORE MEDIANS
+----------------------------------------------------------------------
+heading_reliability: 0.8500
+yawrate_reliability: 0.8500
+gnss_reliability: 1.0000
+
+IMPORTANT NOTE
+----------------------------------------------------------------------
+These are reliability scores for analysis.
+They are NOT ground-truth labels.
+The scoring rules are analysis assumptions and are not part of the original paper.
+No data was deleted or modified.
+No final yaw reference was created in Step 31.

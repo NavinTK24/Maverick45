@@ -1,0 +1,12 @@
+STEP 36 - FINAL SEQUENCE INVENTORY
+======================================================================
+
+Number of sequences: 72
+Total samples: 105,048
+Largest sequence: 12,529
+Smallest sequence: 15
+Median sequence size: 182.5
+Mean sequence size: 1459.0
+Continuous sequences: 27
+Non-continuous sequences: 45
+Missing windows: 1,992

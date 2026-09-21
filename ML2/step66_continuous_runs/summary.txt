@@ -1,0 +1,28 @@
+STEP 66 - CONTINUOUS VALID TEMPORAL RUN ANALYSIS
+================================================================================
+Metadata file: D:\Maverick\ML2\avnet_yaw_reference_metadata.csv
+Sequence split file: D:\Maverick\ML2\step38_avnet_data\sequence_split.csv
+Total valid windows: 105,048
+Total continuous runs: 1,395
+Total datasets: 72
+Minimum run length: 1
+Maximum run length: 4363
+Mean run length: 75.30
+Median run length: 12.00
+P90 run length: 185.00
+P95 run length: 305.90
+P99 run length: 962.88
+
+Split summary:
+
+TRAIN
+Runs: 1030
+Windows: 73535
+
+VALIDATION
+Runs: 172
+Windows: 15932
+
+TEST
+Runs: 193
+Windows: 15581

@@ -1,0 +1,56 @@
+STEP 32 - THREE-SIGNAL CONSENSUS SUMMARY
+======================================================================
+
+Total windows: 107,043
+Moving windows >=5 km/h: 92,276
+
+VEHICLE ROTATIONAL CONSENSUS
+----------------------------------------------------------------------
+STRONG: 91109 (98.74%)
+MODERATE: 822 (0.89%)
+DISAGREEMENT: 256 (0.28%)
+STRONG_DISAGREEMENT: 89 (0.10%)
+
+PHYSICAL TURNING STATES
+----------------------------------------------------------------------
+NO_SUBSTANTIAL_TURN: 77687 (84.19%)
+PARTIAL_ROTATION: 8084 (8.76%)
+BOTH_ROTATE_LATERAL_SUPPORT: 5599 (6.07%)
+BOTH_ROTATE_WEAK_LATERAL: 616 (0.67%)
+HEADING_ONLY: 272 (0.29%)
+YAWRATE_ONLY: 18 (0.02%)
+
+GNSS TRAJECTORY STATES
+----------------------------------------------------------------------
+STRONG_TRAJECTORY: 77611 (84.11%)
+MODERATE_TRAJECTORY: 11804 (12.79%)
+WEAK_TRAJECTORY: 2687 (2.91%)
+UNSTABLE_TRAJECTORY: 174 (0.19%)
+
+THREE-SIGNAL CONSENSUS
+----------------------------------------------------------------------
+STRAIGHT_ALL_AGREE: 77518 (84.01%)
+PARTIAL_ALL_AGREE: 7900 (8.56%)
+TURN_ALL_THREE_AGREE: 4251 (4.61%)
+TURN_VEHICLE_CONSENSUS_GNSS_DISAGREE: 963 (1.04%)
+TURN_HEADING_GNSS_AGREE: 752 (0.81%)
+HEADING_ONLY_GNSS_AGREE: 201 (0.22%)
+TURN_YAWRATE_GNSS_AGREE: 193 (0.21%)
+STRAIGHT_VEHICLE_CONSENSUS: 126 (0.14%)
+PARTIAL_VEHICLE_DISAGREEMENT: 103 (0.11%)
+UNRESOLVED: 60 (0.07%)
+HEADING_ONLY_GNSS_WEAK: 50 (0.05%)
+STRAIGHT_NO_GNSS_DIRECTION: 43 (0.05%)
+TURN_VEHICLE_DISAGREEMENT: 36 (0.04%)
+HEADING_ONLY_UNRESOLVED: 21 (0.02%)
+PARTIAL_VEHICLE_CONSENSUS: 21 (0.02%)
+TURN_VEHICLE_CONSENSUS_GNSS_WEAK: 20 (0.02%)
+YAWRATE_ONLY_UNRESOLVED: 11 (0.01%)
+YAWRATE_ONLY_GNSS_AGREE: 7 (0.01%)
+
+IMPORTANT NOTE
+----------------------------------------------------------------------
+These are descriptive reliability/consensus classifications.
+They are NOT ground-truth labels.
+No data was deleted or modified.
+No final yaw reference was created.

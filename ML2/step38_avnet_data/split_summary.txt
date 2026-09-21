@@ -1,0 +1,21 @@
+STEP 38 - FINAL AVNET SPLIT
+======================================================================
+
+Train samples: 73,535
+Validation samples: 15,932
+Test samples: 15,581
+
+Train sequences: 51
+Validation sequences: 12
+Test sequences: 9
+
+TEST SEQUENCES
+s2: 9,150
+vfa01: 1,139
+vta1a: 2,558
+vta28: 404
+vta4: 177
+vta5: 30
+vta9: 15
+vw14b: 1,958
+vw8: 150

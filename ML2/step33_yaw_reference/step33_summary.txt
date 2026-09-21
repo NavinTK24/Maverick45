@@ -1,0 +1,80 @@
+======================================================================
+STEP 33 - COMPLETE YAW REFERENCE ANALYSIS
+======================================================================
+
+Total windows: 107,043
+Moving windows >=5 km/h: 92,276
+
+SIGN CONVENTION
+----------------
+Same-sign median error     : 1.625991 deg
+Same-sign P90              : 14.597999 deg
+Inverted-sign median error : 0.344996 deg
+Inverted-sign P90          : 1.551997 deg
+Selected convention        : INVERTED
+
+REFERENCE SOURCES
+-----------------
+THREE_SIGNAL_SUPPORTED                          88,955 ( 83.10%)
+VEHICLE_CONSENSUS_GNSS_UNRELIABLE               13,504 ( 12.62%)
+AMBIGUOUS                                        1,995 (  1.86%)
+VEHICLE_CONSENSUS_GNSS_DISAGREEMENT              1,504 (  1.41%)
+VEHICLE_CONSENSUS                                  569 (  0.53%)
+GNSS_SUPPORTED_VEHICLE_DISAGREEMENT                383 (  0.36%)
+LOW_ROTATION                                       133 (  0.12%)
+
+THREE-SIGNAL CONSENSUS
+----------------------
+STRAIGHT_ALL_AGREE                              90,230 ( 84.29%)
+STRAIGHT_VEHICLE_CONSENSUS                       7,377 (  6.89%)
+TURN_ALL_THREE_AGREE                             4,918 (  4.59%)
+TURN_VEHICLE_CONSENSUS_GNSS_DISAGREE             1,435 (  1.34%)
+STRAIGHT_NO_RELIABLE_GNSS                          699 (  0.65%)
+HEADING_ONLY_UNRESOLVED                            608 (  0.57%)
+STRAIGHT_UNRESOLVED                                597 (  0.56%)
+HEADING_ONLY_GNSS_AGREE                            356 (  0.33%)
+TURN_YAWRATE_GNSS_AGREE                            289 (  0.27%)
+TURN_HEADING_GNSS_AGREE                            252 (  0.24%)
+TURN_VEHICLE_DISAGREEMENT                          190 (  0.18%)
+YAWRATE_ONLY_GNSS_AGREE                             33 (  0.03%)
+TURN_VEHICLE_CONSENSUS_GNSS_UNRELIABLE              31 (  0.03%)
+YAWRATE_ONLY_UNRESOLVED                             28 (  0.03%)
+
+GNSS STATES
+-----------
+STRONG_TRAJECTORY                81,517 ( 76.15%)
+WEAK_OR_UNSTABLE                 14,942 ( 13.96%)
+MODERATE_TRAJECTORY              10,584 (  9.89%)
+
+PHYSICAL STATES
+---------------
+STRAIGHT_OR_LOW_TURN                  90,376 ( 84.43%)
+WEAK_OR_AMBIGUOUS                      9,441 (  8.82%)
+PHYSICALLY_CONSISTENT_TURN             5,613 (  5.24%)
+HEADING_ONLY_TURN                        827 (  0.77%)
+ROTATIONALLY_CONSISTENT_TURN             738 (  0.69%)
+YAWRATE_ONLY_TURN                         30 (  0.03%)
+HEADING_YAWRATE_DISAGREEMENT              18 (  0.02%)
+
+FINAL REFERENCE
+---------------
+Valid reference rows : 105,048 (98.14%)
+Ambiguous rows       : 1,995 (1.86%)
+Rows lost            : 0
+Maximum quaternion norm error : 0.000000000000
+
+REFERENCE ΔYAW
+--------------
+Min    : -49.517000 deg
+Max    : 58.845000 deg
+Median : 0.000000 deg
+P90    : 3.121000 deg
+P95    : 7.215300 deg
+P99    : 24.114360 deg
+
+IMPORTANT
+---------
+The final reference is a dataset-derived yaw reference.
+It is not the original paper's external ground-truth attitude.
+All original windows are retained.
+Reference source and supporting measurements are retained for every window.

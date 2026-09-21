@@ -1,0 +1,27 @@
+STEP 67 - RECURRENT TEMPORAL SEQUENCE DATASET
+================================================================================
+Total original windows: 105,048
+Total recurrent runs: 1,395
+Total reconstructed windows: 105,048
+
+TRAIN
+Runs: 1030
+Windows: 73535
+Minimum run: 1
+Median run: 10.0
+Maximum run: 4363
+
+VALIDATION
+Runs: 172
+Windows: 15932
+Minimum run: 1
+Median run: 20.5
+Maximum run: 2273
+
+TEST
+Runs: 193
+Windows: 15581
+Minimum run: 1
+Median run: 16.0
+Maximum run: 1958
+

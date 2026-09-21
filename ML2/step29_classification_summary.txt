@@ -1,0 +1,165 @@
+STEP 29 - MOVING DISAGREEMENT SUMMARY
+======================================================================
+
+Total Step 26 windows: 107,043
+Three-way disagreement: 3,386
+Moving disagreement >=5 km/h: 74
+Successfully analyzed: 74
+
+CLASSIFICATION COUNTS
+----------------------------------------------------------------------
+A_GNSS_LIKELY_UNRELIABLE: 50 (67.57%)
+E_AMBIGUOUS: 24 (32.43%)
+
+MOVING WINDOW STATISTICS
+----------------------------------------------------------------------
+
+mean_speed_kmh
+  median = 20.4199
+  P90    = 57.6433
+  P95    = 61.0246
+  max    = 71.4991
+
+gnss_displacement_m
+  median = 4.9172
+  P90    = 16.1380
+  P95    = 26.2811
+  max    = 45.4837
+
+gnss_abs_direction_change_deg
+  median = 29.9492
+  P90    = 74.2662
+  P95    = 126.4806
+  max    = 176.1495
+
+gnss_bearing_spread_deg
+  median = 54.9839
+  P90    = 136.6280
+  P95    = 167.1522
+  max    = 180.0000
+
+raw_heading_change_deg
+  median = 1.0875
+  P90    = 53.0897
+  P95    = 57.4730
+  max    = 73.5440
+
+yawrate_integrated_inverted_deg
+  median = 0.2050
+  P90    = 55.2410
+  P95    = 60.1950
+  max    = 64.6300
+
+heading_yawrate_error_deg
+  median = 5.6840
+  P90    = 33.4470
+  P95    = 59.3179
+  max    = 72.7320
+
+heading_vs_gnss_error_deg
+  median = 29.4688
+  P90    = 78.1272
+  P95    = 101.4264
+  max    = 157.3996
+
+yawrate_vs_gnss_error_deg
+  median = 29.0327
+  P90    = 69.4082
+  P95    = 112.9858
+  max    = 176.1561
+
+mean_abs_yaw_rate_deg_s
+  median = 4.5900
+  P90    = 56.0030
+  P95    = 60.3510
+  max    = 64.6300
+
+max_abs_lateral_acc
+  median = 0.0796
+  P90    = 0.6569
+  P95    = 0.7635
+  max    = 0.8303
+
+max_heading_step_deg
+  median = 7.0030
+  P90    = 19.9733
+  P95    = 29.0895
+  max    = 72.1020
+
+
+ALL ANALYZED WINDOWS
+----------------------------------------------------------------------
+m        w  369 | A_GNSS_LIKELY_UNRELIABLE         | speed=30.60 | GNSS=35.88 | Head=-2.15 | Yaw=2.20 | H-Y=4.35
+m        w 2938 | E_AMBIGUOUS                      | speed=9.69 | GNSS=176.15 | Head=50.69 | Yaw=0.09 | H-Y=50.60
+m        w 3231 | A_GNSS_LIKELY_UNRELIABLE         | speed=12.92 | GNSS=24.28 | Head=44.93 | Yaw=50.24 | H-Y=5.31
+m        w 3310 | E_AMBIGUOUS                      | speed=20.54 | GNSS=29.31 | Head=-14.43 | Yaw=5.48 | H-Y=19.91
+m        w 5362 | A_GNSS_LIKELY_UNRELIABLE         | speed=22.72 | GNSS=28.23 | Head=49.72 | Yaw=54.72 | H-Y=5.00
+m        w 5363 | A_GNSS_LIKELY_UNRELIABLE         | speed=21.28 | GNSS=28.01 | Head=50.03 | Yaw=57.99 | H-Y=7.96
+m        w 5364 | A_GNSS_LIKELY_UNRELIABLE         | speed=21.41 | GNSS=31.73 | Head=59.12 | Yaw=62.60 | H-Y=3.48
+m        w 5365 | A_GNSS_LIKELY_UNRELIABLE         | speed=20.30 | GNSS=32.54 | Head=56.44 | Yaw=63.14 | H-Y=6.70
+m        w 5366 | E_AMBIGUOUS                      | speed=21.36 | GNSS=31.15 | Head=52.77 | Yaw=63.39 | H-Y=10.62
+m        w 5367 | A_GNSS_LIKELY_UNRELIABLE         | speed=21.29 | GNSS=31.40 | Head=56.58 | Yaw=64.63 | H-Y=8.05
+m        w 6715 | E_AMBIGUOUS                      | speed=6.17 | GNSS=-46.40 | Head=11.93 | Yaw=0.03 | H-Y=11.90
+m        w 6716 | E_AMBIGUOUS                      | speed=9.62 | GNSS=-52.30 | Head=-27.33 | Yaw=-0.08 | H-Y=27.25
+m        w 6717 | A_GNSS_LIKELY_UNRELIABLE         | speed=13.12 | GNSS=43.88 | Head=-1.76 | Yaw=0.20 | H-Y=1.96
+m        w 6734 | E_AMBIGUOUS                      | speed=5.31 | GNSS=-30.43 | Head=38.57 | Yaw=7.65 | H-Y=30.92
+m        w 6765 | A_GNSS_LIKELY_UNRELIABLE         | speed=6.63 | GNSS=27.65 | Head=1.16 | Yaw=-1.64 | H-Y=2.80
+m        w 7928 | E_AMBIGUOUS                      | speed=56.95 | GNSS=40.66 | Head=9.15 | Yaw=-2.89 | H-Y=12.04
+m        w 7929 | A_GNSS_LIKELY_UNRELIABLE         | speed=57.82 | GNSS=39.88 | Head=-8.85 | Yaw=-2.67 | H-Y=6.18
+m        w 8095 | E_AMBIGUOUS                      | speed=49.22 | GNSS=44.08 | Head=16.21 | Yaw=-3.84 | H-Y=20.05
+s1       w  138 | E_AMBIGUOUS                      | speed=47.61 | GNSS=33.51 | Head=-43.99 | Yaw=5.43 | H-Y=49.42
+s1       w 3736 | A_GNSS_LIKELY_UNRELIABLE         | speed=7.26 | GNSS=22.00 | Head=-5.76 | Yaw=-0.06 | H-Y=5.70
+s2       w  940 | A_GNSS_LIKELY_UNRELIABLE         | speed=27.71 | GNSS=20.00 | Head=-0.67 | Yaw=-0.50 | H-Y=0.17
+s2       w 1972 | A_GNSS_LIKELY_UNRELIABLE         | speed=18.11 | GNSS=22.95 | Head=-7.82 | Yaw=1.91 | H-Y=9.73
+s3c      w 2541 | A_GNSS_LIKELY_UNRELIABLE         | speed=29.46 | GNSS=-25.54 | Head=8.64 | Yaw=8.89 | H-Y=0.25
+s3c      w 2542 | A_GNSS_LIKELY_UNRELIABLE         | speed=28.16 | GNSS=20.34 | Head=-10.70 | Yaw=-5.05 | H-Y=5.64
+s3c      w 2550 | A_GNSS_LIKELY_UNRELIABLE         | speed=11.19 | GNSS=122.01 | Head=16.92 | Yaw=24.70 | H-Y=7.78
+s3c      w 2573 | A_GNSS_LIKELY_UNRELIABLE         | speed=19.18 | GNSS=29.47 | Head=1.30 | Yaw=0.39 | H-Y=0.91
+s3c      w 2623 | A_GNSS_LIKELY_UNRELIABLE         | speed=13.77 | GNSS=-161.49 | Head=-3.13 | Yaw=0.20 | H-Y=3.33
+s3c      w 2730 | E_AMBIGUOUS                      | speed=19.07 | GNSS=37.00 | Head=-40.19 | Yaw=-7.04 | H-Y=33.15
+s3c      w 2731 | A_GNSS_LIKELY_UNRELIABLE         | speed=15.47 | GNSS=35.12 | Head=-6.28 | Yaw=-3.62 | H-Y=2.66
+s3c      w 2790 | E_AMBIGUOUS                      | speed=25.21 | GNSS=56.82 | Head=12.05 | Yaw=-0.03 | H-Y=12.08
+s3c      w 2805 | E_AMBIGUOUS                      | speed=13.33 | GNSS=96.18 | Head=61.08 | Yaw=3.33 | H-Y=57.75
+s3c      w 2806 | E_AMBIGUOUS                      | speed=11.21 | GNSS=-134.78 | Head=-30.35 | Yaw=3.23 | H-Y=33.58
+s3c      w 3013 | A_GNSS_LIKELY_UNRELIABLE         | speed=71.50 | GNSS=-46.42 | Head=-4.20 | Yaw=-0.60 | H-Y=3.60
+s3c      w 3246 | A_GNSS_LIKELY_UNRELIABLE         | speed=57.07 | GNSS=-21.14 | Head=4.96 | Yaw=-0.22 | H-Y=5.18
+s3c      w 3273 | E_AMBIGUOUS                      | speed=45.48 | GNSS=-33.84 | Head=-10.39 | Yaw=5.67 | H-Y=16.06
+s3c      w 3625 | A_GNSS_LIKELY_UNRELIABLE         | speed=6.52 | GNSS=-72.95 | Head=-14.47 | Yaw=-18.67 | H-Y=4.20
+s3c      w 3642 | E_AMBIGUOUS                      | speed=4.60 | GNSS=173.91 | Head=-73.05 | Yaw=-2.86 | H-Y=70.19
+s3c      w 3643 | A_GNSS_LIKELY_UNRELIABLE         | speed=25.26 | GNSS=33.39 | Head=7.80 | Yaw=1.42 | H-Y=6.38
+s3c      w 3644 | A_GNSS_LIKELY_UNRELIABLE         | speed=28.93 | GNSS=-23.21 | Head=5.86 | Yaw=7.40 | H-Y=1.54
+s3c      w 3664 | A_GNSS_LIKELY_UNRELIABLE         | speed=9.76 | GNSS=-28.29 | Head=-5.24 | Yaw=-8.82 | H-Y=3.58
+s3c      w 3712 | E_AMBIGUOUS                      | speed=5.50 | GNSS=-27.00 | Head=18.50 | Yaw=-0.04 | H-Y=18.54
+s4       w 9368 | A_GNSS_LIKELY_UNRELIABLE         | speed=5.58 | GNSS=14.71 | Head=-14.98 | Yaw=-6.73 | H-Y=8.25
+vfa02    w 6519 | A_GNSS_LIKELY_UNRELIABLE         | speed=6.43 | GNSS=24.97 | Head=0.67 | Yaw=-0.21 | H-Y=0.88
+vfa02    w 6522 | A_GNSS_LIKELY_UNRELIABLE         | speed=22.84 | GNSS=83.52 | Head=-4.38 | Yaw=-4.43 | H-Y=0.05
+vfa02    w 6526 | A_GNSS_LIKELY_UNRELIABLE         | speed=33.49 | GNSS=-46.87 | Head=-9.65 | Yaw=-11.78 | H-Y=2.13
+vfa02    w 6528 | A_GNSS_LIKELY_UNRELIABLE         | speed=33.24 | GNSS=9.86 | Head=-8.79 | Yaw=-11.87 | H-Y=3.08
+vfa02    w 6545 | A_GNSS_LIKELY_UNRELIABLE         | speed=19.60 | GNSS=-0.69 | Head=-40.39 | Yaw=-33.51 | H-Y=6.88
+vta16    w  438 | A_GNSS_LIKELY_UNRELIABLE         | speed=17.86 | GNSS=-23.63 | Head=-0.89 | Yaw=-0.29 | H-Y=0.60
+vta29    w   81 | A_GNSS_LIKELY_UNRELIABLE         | speed=40.22 | GNSS=48.43 | Head=2.74 | Yaw=0.32 | H-Y=2.42
+vta30    w 1289 | A_GNSS_LIKELY_UNRELIABLE         | speed=9.43 | GNSS=32.07 | Head=4.70 | Yaw=0.24 | H-Y=4.46
+vtb1     w  483 | A_GNSS_LIKELY_UNRELIABLE         | speed=62.67 | GNSS=24.73 | Head=-0.54 | Yaw=-5.42 | H-Y=4.88
+vtb1     w  561 | E_AMBIGUOUS                      | speed=57.90 | GNSS=-28.34 | Head=9.33 | Yaw=-3.11 | H-Y=12.44
+vtb1     w 2860 | A_GNSS_LIKELY_UNRELIABLE         | speed=65.13 | GNSS=29.20 | Head=4.18 | Yaw=9.72 | H-Y=5.54
+vtb1     w 2916 | A_GNSS_LIKELY_UNRELIABLE         | speed=20.68 | GNSS=2.92 | Head=-20.70 | Yaw=-21.13 | H-Y=0.43
+vtb1     w 2943 | A_GNSS_LIKELY_UNRELIABLE         | speed=19.46 | GNSS=31.47 | Head=-6.62 | Yaw=-3.95 | H-Y=2.67
+vtb1     w 3237 | A_GNSS_LIKELY_UNRELIABLE         | speed=12.99 | GNSS=19.62 | Head=1.02 | Yaw=0.94 | H-Y=0.08
+vtb5     w 2500 | E_AMBIGUOUS                      | speed=55.16 | GNSS=20.93 | Head=-72.44 | Yaw=0.29 | H-Y=72.73
+vw4      w  485 | A_GNSS_LIKELY_UNRELIABLE         | speed=13.96 | GNSS=-32.74 | Head=3.36 | Yaw=-0.78 | H-Y=4.14
+vw4      w 1392 | A_GNSS_LIKELY_UNRELIABLE         | speed=19.42 | GNSS=25.64 | Head=44.76 | Yaw=51.58 | H-Y=6.82
+vw4      w 1393 | A_GNSS_LIKELY_UNRELIABLE         | speed=20.67 | GNSS=27.32 | Head=50.14 | Yaw=55.08 | H-Y=4.93
+vw4      w 2120 | A_GNSS_LIKELY_UNRELIABLE         | speed=16.59 | GNSS=24.37 | Head=45.66 | Yaw=49.22 | H-Y=3.56
+vw4      w 3596 | A_GNSS_LIKELY_UNRELIABLE         | speed=15.07 | GNSS=25.03 | Head=54.65 | Yaw=55.31 | H-Y=0.66
+vw4      w 9622 | A_GNSS_LIKELY_UNRELIABLE         | speed=13.32 | GNSS=-23.85 | Head=0.61 | Yaw=0.04 | H-Y=0.57
+vw7      w   43 | A_GNSS_LIKELY_UNRELIABLE         | speed=15.03 | GNSS=27.50 | Head=51.14 | Yaw=56.30 | H-Y=5.16
+y1       w  285 | E_AMBIGUOUS                      | speed=60.14 | GNSS=-62.10 | Head=-28.97 | Yaw=-0.00 | H-Y=28.97
+y1       w  671 | E_AMBIGUOUS                      | speed=37.29 | GNSS=24.77 | Head=62.22 | Yaw=-0.02 | H-Y=62.24
+y1       w  676 | E_AMBIGUOUS                      | speed=57.74 | GNSS=-27.22 | Head=20.81 | Yaw=0.21 | H-Y=20.60
+y1       w  702 | A_GNSS_LIKELY_UNRELIABLE         | speed=57.42 | GNSS=-21.47 | Head=-2.62 | Yaw=4.75 | H-Y=7.37
+y1       w 3757 | E_AMBIGUOUS                      | speed=69.37 | GNSS=74.83 | Head=27.15 | Yaw=5.64 | H-Y=21.51
+y1       w 3805 | A_GNSS_LIKELY_UNRELIABLE         | speed=19.52 | GNSS=69.67 | Head=-0.84 | Yaw=1.38 | H-Y=2.22
+y1       w 5148 | E_AMBIGUOUS                      | speed=6.53 | GNSS=-34.61 | Head=-8.85 | Yaw=5.17 | H-Y=14.02
+y1       w 5151 | E_AMBIGUOUS                      | speed=48.07 | GNSS=-50.85 | Head=73.54 | Yaw=5.67 | H-Y=67.87
+y1       w 5613 | A_GNSS_LIKELY_UNRELIABLE         | speed=20.66 | GNSS=-27.69 | Head=-52.47 | Yaw=-59.14 | H-Y=6.67
+y1       w 5740 | A_GNSS_LIKELY_UNRELIABLE         | speed=19.12 | GNSS=28.67 | Head=53.23 | Yaw=58.90 | H-Y=5.67

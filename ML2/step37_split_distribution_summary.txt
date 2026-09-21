@@ -1,0 +1,11 @@
+STEP 37 - SPLIT DISTRIBUTION CHECK
+======================================================================
+
+     split  sequences  samples  percentage  yaw_mean_deg  yaw_std_deg  yaw_median_deg  yaw_p90_deg  yaw_p95_deg  yaw_p99_deg  abs_yaw_ge_5  abs_yaw_ge_10  abs_yaw_ge_20  abs_yaw_ge_45  confidence_mean  confidence_median  confidence_min dominant_reference_source  dominant_source_percent
+     TRAIN         59    73512   69.979438      0.268005     5.695009             0.0       3.4929      7.92795     24.76778         10391           4972           1746             18         0.990382                1.0             0.6    THREE_SIGNAL_SUPPORTED                86.305637
+VALIDATION          8    15772   15.014089      0.200968     5.079642             0.0       2.2959      6.20095     23.46603          1737            944            303              0         0.989649                1.0             0.6    THREE_SIGNAL_SUPPORTED                83.724322
+      TEST          5    15764   15.006473      0.243072     4.669429             0.0       2.0640      5.07810     20.83450          1433            704            241              3         0.986758                1.0             0.6    THREE_SIGNAL_SUPPORTED                78.057600
+
+Seed: 246
+Sequence-level split.
+No individual sequence is divided between splits.

@@ -1,0 +1,22 @@
+STEP 30 - PHYSICAL TURNING CONSISTENCY SUMMARY
+======================================================================
+
+Total Step 26 windows: 107,043
+Moving windows >=5 km/h: 92,276
+
+PHYSICAL CLASSIFICATION COUNTS
+----------------------------------------------------------------------
+STRAIGHT_OR_LOW_TURN: 77478 (83.96%)
+WEAK_OR_AMBIGUOUS: 8293 (8.99%)
+PHYSICALLY_CONSISTENT_TURN: 5588 (6.06%)
+ROTATIONALLY_CONSISTENT_TURN: 612 (0.66%)
+HEADING_ONLY_TURN: 272 (0.29%)
+YAWRATE_ONLY_TURN: 18 (0.02%)
+HEADING_YAWRATE_DISAGREEMENT: 15 (0.02%)
+
+INTERPRETATION NOTE
+----------------------------------------------------------------------
+These classifications are reliability-analysis labels only.
+They are NOT ground-truth labels.
+No data was deleted or modified.
+No single sensor was selected as ground truth.

@@ -1,0 +1,36 @@
+======================================================================
+STEP 34 - FINAL YAW REFERENCE AUDIT
+======================================================================
+
+Total windows: 107,043
+Valid references: 105,048
+Ambiguous: 1,995
+
+REFERENCE JUMPS
+----------------
+>=45°  : 21
+>=90°  : 0
+>=120° : 0
+>=150° : 0
+
+REFERENCE AGREEMENT
+--------------------
+Heading: median=0.000000°, P90=0.000000°, P95=0.000000°, P99=0.000000°
+Aligned YawRate: median=0.300005°, P90=1.519997°, P95=2.301992°, P99=4.044999°
+GNSS: median=0.631219°, P90=6.056339°, P95=12.344120°, P99=58.700248°
+
+REFERENCE SOURCES
+-----------------
+THREE_SIGNAL_SUPPORTED                          88,955 ( 83.10%)
+VEHICLE_CONSENSUS_GNSS_UNRELIABLE               13,504 ( 12.62%)
+AMBIGUOUS                                        1,995 (  1.86%)
+VEHICLE_CONSENSUS_GNSS_DISAGREEMENT              1,504 (  1.41%)
+VEHICLE_CONSENSUS                                  569 (  0.53%)
+GNSS_SUPPORTED_VEHICLE_DISAGREEMENT                383 (  0.36%)
+LOW_ROTATION                                       133 (  0.12%)
+
+INTERPRETATION
+--------------
+This audit does not modify the Step 33 reference.
+It only evaluates continuity and agreement with Heading, aligned YawRate and GNSS.
+The reference is dataset-derived and should not be described as the original paper's external ground truth.
