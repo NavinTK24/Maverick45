@@ -42,3 +42,4 @@ env/
 
 # VS Code local settings
 .vscode/
+ML2_BACKUP_BEFORE_MERGE/
