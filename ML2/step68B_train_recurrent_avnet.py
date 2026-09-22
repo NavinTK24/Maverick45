@@ -1,5 +1,5 @@
 import os
-import csv
+import time
 import numpy as np
 import pandas as pd
 import torch
@@ -8,10 +8,10 @@ from torch.optim import Adam
 
 
 # ============================================================
-# CONFIGURATION
+# PATHS
 # ============================================================
 
-ROOT = r"D:\Maverick\ML2"
+ROOT = r"C:\Users\STUDENT\Desktop\Maverick\Maverick45\ML2"
 
 SEQUENCE_DIR = os.path.join(
     ROOT,
@@ -21,7 +21,7 @@ SEQUENCE_DIR = os.path.join(
 
 OUTPUT_DIR = os.path.join(
     ROOT,
-    "step68B_recurrent_training"
+    "step68B_ddodo_recurrent_training"
 )
 
 os.makedirs(
@@ -30,8 +30,11 @@ os.makedirs(
 )
 
 
+# ============================================================
+# CONFIGURATION
+# ============================================================
+
 LEARNING_RATE = 0.0001
-BATCH_SIZE = 1
 EPOCHS = 100
 
 
@@ -47,7 +50,7 @@ device = torch.device(
 
 
 print("=" * 100)
-print("STEP 68B - TRAIN RECURRENT AVNET")
+print("STEP 68B - RECURRENT DDODO ONLY")
 print("=" * 100)
 
 print(
@@ -55,14 +58,21 @@ print(
     device
 )
 
+if torch.cuda.is_available():
+
+    print(
+        "GPU:",
+        torch.cuda.get_device_name(0)
+    )
+
+    print(
+        "CUDA:",
+        torch.version.cuda
+    )
+
 print(
     "Learning rate:",
     LEARNING_RATE
-)
-
-print(
-    "Batch size:",
-    BATCH_SIZE
 )
 
 print(
@@ -72,22 +82,44 @@ print(
 
 
 # ============================================================
+# TIME FORMATTER
+# ============================================================
+
+def format_time(seconds):
+
+    seconds = int(
+        max(
+            0,
+            seconds
+        )
+    )
+
+    hours = seconds // 3600
+
+    minutes = (
+        seconds % 3600
+    ) // 60
+
+    secs = (
+        seconds % 60
+    )
+
+    return (
+        f"{hours:02d}:"
+        f"{minutes:02d}:"
+        f"{secs:02d}"
+    )
+
+
+# ============================================================
 # MODEL
 # ============================================================
 
-class RecurrentAVNet(nn.Module):
+class RecurrentDDODO(nn.Module):
 
-    def __init__(
-        self,
-        output_size
-    ):
+    def __init__(self):
 
         super().__init__()
-
-
-        # ----------------------------------------------------
-        # CNN
-        # ----------------------------------------------------
 
         self.conv1 = nn.Conv1d(
             in_channels=6,
@@ -109,11 +141,6 @@ class RecurrentAVNet(nn.Module):
             kernel_size=2
         )
 
-
-        # ----------------------------------------------------
-        # Fully connected
-        # ----------------------------------------------------
-
         self.fc1 = nn.Linear(
             256,
             1024
@@ -124,24 +151,14 @@ class RecurrentAVNet(nn.Module):
             512
         )
 
-
-        # ----------------------------------------------------
-        # GRU CELL
-        # ----------------------------------------------------
-
         self.gru_cell = nn.GRUCell(
             input_size=512,
             hidden_size=512
         )
 
-
-        # ----------------------------------------------------
-        # Output
-        # ----------------------------------------------------
-
         self.output = nn.Linear(
             512,
-            output_size
+            1
         )
 
 
@@ -150,28 +167,14 @@ class RecurrentAVNet(nn.Module):
         window
     ):
 
-        # ----------------------------------------------------
-        # Input window:
-        #
-        # (10, 6)
-        #
-        # 10 samples
-        # 6 IMU channels
-        # ----------------------------------------------------
-
         x = window.permute(
             1,
             0
         )
 
-        # (6,10)
-
         x = x.unsqueeze(
             0
         )
-
-        # (1,6,10)
-
 
         x = self.conv1(
             x
@@ -185,7 +188,6 @@ class RecurrentAVNet(nn.Module):
             x
         )
 
-
         x = self.conv2(
             x
         )
@@ -198,20 +200,10 @@ class RecurrentAVNet(nn.Module):
             x
         )
 
-
-        # ----------------------------------------------------
-        # Flatten
-        # ----------------------------------------------------
-
         x = torch.flatten(
             x,
             start_dim=1
         )
-
-
-        # ----------------------------------------------------
-        # FC
-        # ----------------------------------------------------
 
         x = torch.relu(
             self.fc1(x)
@@ -220,9 +212,6 @@ class RecurrentAVNet(nn.Module):
         x = torch.relu(
             self.fc2(x)
         )
-
-
-        # (1,512) -> (512)
 
         return x.squeeze(
             0
@@ -234,32 +223,15 @@ class RecurrentAVNet(nn.Module):
         sequence
     ):
 
-        # sequence:
-        #
-        # (N,10,6)
-        #
-        # N = number of consecutive 1-second windows
-
-
         sequence_length = sequence.shape[0]
 
-
-        # ----------------------------------------------------
-        # Original QDeepOdo-style hidden state
-        # ----------------------------------------------------
-
+        # QDeepOdo-style hidden state
         hx = torch.randn(
             512,
             device=sequence.device
         )
 
-
         outputs = []
-
-
-        # ----------------------------------------------------
-        # Recurrent processing
-        # ----------------------------------------------------
 
         for t in range(
             sequence_length
@@ -269,22 +241,18 @@ class RecurrentAVNet(nn.Module):
                 sequence[t]
             )
 
-
             hx = self.gru_cell(
                 feature,
                 hx
             )
 
-
-            output = self.output(
+            velocity = self.output(
                 hx
             )
 
-
             outputs.append(
-                output
+                velocity
             )
-
 
         return torch.stack(
             outputs,
@@ -300,7 +268,6 @@ print(
     "\nLoading recurrent sequences..."
 )
 
-
 all_files = [
     f
     for f in os.listdir(
@@ -309,46 +276,29 @@ all_files = [
     if f.endswith(".npz")
 ]
 
+train_files = sorted(
+    [
+        f
+        for f in all_files
+        if "_train.npz" in f.lower()
+    ]
+)
 
-if len(all_files) == 0:
+validation_files = sorted(
+    [
+        f
+        for f in all_files
+        if "_validation.npz" in f.lower()
+    ]
+)
 
-    raise FileNotFoundError(
-        "No Step 67 recurrent sequence files found."
-    )
-
-
-train_files = []
-validation_files = []
-test_files = []
-
-
-for filename in all_files:
-
-    lower = filename.lower()
-
-
-    if "_train.npz" in lower:
-
-        train_files.append(
-            filename
-        )
-
-    elif "_validation.npz" in lower:
-
-        validation_files.append(
-            filename
-        )
-
-    elif "_test.npz" in lower:
-
-        test_files.append(
-            filename
-        )
-
-
-train_files.sort()
-validation_files.sort()
-test_files.sort()
+test_files = sorted(
+    [
+        f
+        for f in all_files
+        if "_test.npz" in f.lower()
+    ]
+)
 
 
 print(
@@ -367,8 +317,27 @@ print(
 )
 
 
+if len(train_files) != 1030:
+    raise ValueError(
+        f"Expected 1030 training runs, "
+        f"found {len(train_files)}"
+    )
+
+if len(validation_files) != 172:
+    raise ValueError(
+        f"Expected 172 validation runs, "
+        f"found {len(validation_files)}"
+    )
+
+if len(test_files) != 193:
+    raise ValueError(
+        f"Expected 193 test runs, "
+        f"found {len(test_files)}"
+    )
+
+
 # ============================================================
-# FUNCTION TO LOAD A RUN
+# LOAD RUN
 # ============================================================
 
 def load_run(
@@ -380,109 +349,77 @@ def load_run(
         filename
     )
 
-
     data = np.load(
         path
     )
 
-
-    X = data["X"].astype(
+    X = data[
+        "X"
+    ].astype(
         np.float32
     )
 
-    Y_DDATT = data["Y_DDATT"].astype(
+    Y = data[
+        "Y_DDODO"
+    ].astype(
         np.float32
+    ).reshape(
+        -1,
+        1
     )
 
-    Y_DDODO = data["Y_DDODO"].astype(
-        np.float32
-    )
-
-
-    return (
-        X,
-        Y_DDATT,
-        Y_DDODO
-    )
+    return X, Y
 
 
 # ============================================================
-# CREATE MODELS
+# CREATE MODEL
 # ============================================================
 
 print(
-    "\nCreating DDATT model..."
+    "\nCreating DDODO model..."
 )
 
-ddatt_model = RecurrentAVNet(
-    output_size=3
-).to(device)
-
-
-print(
-    "Creating DDODO model..."
-)
-
-ddodo_model = RecurrentAVNet(
-    output_size=1
-).to(device)
-
-
-print(
-    "\nDDATT parameters:",
-    sum(
-        p.numel()
-        for p in ddatt_model.parameters()
-    )
+model = RecurrentDDODO().to(
+    device
 )
 
 print(
     "DDODO parameters:",
     sum(
         p.numel()
-        for p in ddodo_model.parameters()
+        for p in model.parameters()
     )
 )
 
 
 # ============================================================
-# OPTIMIZERS
+# OPTIMIZER / LOSS
 # ============================================================
 
-ddatt_optimizer = Adam(
-    ddatt_model.parameters(),
+optimizer = Adam(
+    model.parameters(),
     lr=LEARNING_RATE
 )
-
-ddodo_optimizer = Adam(
-    ddodo_model.parameters(),
-    lr=LEARNING_RATE
-)
-
-
-# ============================================================
-# LOSS
-# ============================================================
 
 criterion = nn.MSELoss()
 
 
 # ============================================================
-# SEQUENCE TRAINING FUNCTION
+# TRAIN ONE EPOCH
 # ============================================================
 
 def train_one_epoch(
     model,
     optimizer,
-    files,
-    target_name
+    files
 ):
 
     model.train()
 
-
     total_squared_error = 0.0
     total_elements = 0
+
+    epoch_start = time.perf_counter()
 
 
     for run_number, filename in enumerate(
@@ -490,75 +427,39 @@ def train_one_epoch(
         start=1
     ):
 
-
-        X_np, Y_att_np, Y_odo_np = load_run(
+        X_np, Y_np = load_run(
             filename
         )
 
-
-        # ----------------------------------------------------
-        # Select target
-        # ----------------------------------------------------
-
-        if target_name == "DDATT":
-
-            Y_np = Y_att_np
-
-        else:
-
-            Y_np = Y_odo_np.reshape(
-                -1,
-                1
-            )
-
-
-        # ----------------------------------------------------
-        # Convert to tensor
-        # ----------------------------------------------------
-
         X = torch.from_numpy(
             X_np
-        ).to(device)
+        ).to(
+            device
+        )
 
         Y = torch.from_numpy(
             Y_np
-        ).to(device)
-
-
-        # ----------------------------------------------------
-        # One complete continuous run
-        # ----------------------------------------------------
+        ).to(
+            device
+        )
 
         optimizer.zero_grad()
-
 
         prediction = model(
             X
         )
-
 
         loss = criterion(
             prediction,
             Y
         )
 
-
-        # ----------------------------------------------------
-        # Backpropagation
-        # ----------------------------------------------------
-
         loss.backward()
-
 
         optimizer.step()
 
 
-        # ----------------------------------------------------
-        # Weighted accumulation
-        # ----------------------------------------------------
-
         num_elements = Y.numel()
-
 
         total_squared_error += (
             loss.item()
@@ -566,28 +467,67 @@ def train_one_epoch(
             num_elements
         )
 
-
         total_elements += (
             num_elements
         )
 
 
         # ----------------------------------------------------
-        # Progress
+        # Live progress
         # ----------------------------------------------------
 
         if (
-            run_number % 100 == 0
+            run_number % 25 == 0
             or
             run_number == len(files)
         ):
 
-            print(
-                f"    {target_name}: "
-                f"{run_number}/{len(files)} runs",
-                end="\r"
+            elapsed = (
+                time.perf_counter()
+                -
+                epoch_start
             )
 
+            runs_per_second = (
+                run_number
+                /
+                elapsed
+            )
+
+            remaining_runs = (
+                len(files)
+                -
+                run_number
+            )
+
+            eta = (
+                remaining_runs
+                /
+                runs_per_second
+                if runs_per_second > 0
+                else 0
+            )
+
+
+            print(
+                f"    DDODO: "
+                f"{run_number:4d}/{len(files)} "
+                f"| Elapsed: {format_time(elapsed)} "
+                f"| ETA: {format_time(eta)}",
+                end="\r",
+                flush=True
+            )
+
+
+    epoch_time = (
+        time.perf_counter()
+        -
+        epoch_start
+    )
+
+    print(
+        ""
+    )
 
     epoch_loss = (
         total_squared_error
@@ -595,13 +535,10 @@ def train_one_epoch(
         total_elements
     )
 
-
-    print(
-        ""
+    return (
+        epoch_loss,
+        epoch_time
     )
-
-
-    return epoch_loss
 
 
 # ============================================================
@@ -610,61 +547,47 @@ def train_one_epoch(
 
 def evaluate(
     model,
-    files,
-    target_name
+    files
 ):
 
     model.eval()
 
-
     total_squared_error = 0.0
     total_elements = 0
+
+    validation_start = time.perf_counter()
 
 
     with torch.no_grad():
 
         for filename in files:
 
-
-            X_np, Y_att_np, Y_odo_np = load_run(
+            X_np, Y_np = load_run(
                 filename
             )
 
-
-            if target_name == "DDATT":
-
-                Y_np = Y_att_np
-
-            else:
-
-                Y_np = Y_odo_np.reshape(
-                    -1,
-                    1
-                )
-
-
             X = torch.from_numpy(
                 X_np
-            ).to(device)
+            ).to(
+                device
+            )
 
             Y = torch.from_numpy(
                 Y_np
-            ).to(device)
-
+            ).to(
+                device
+            )
 
             prediction = model(
                 X
             )
-
 
             loss = criterion(
                 prediction,
                 Y
             )
 
-
             num_elements = Y.numel()
-
 
             total_squared_error += (
                 loss.item()
@@ -672,22 +595,43 @@ def evaluate(
                 num_elements
             )
 
-
             total_elements += (
                 num_elements
             )
 
 
-    return (
+    validation_time = (
+        time.perf_counter()
+        -
+        validation_start
+    )
+
+    validation_loss = (
         total_squared_error
         /
         total_elements
     )
 
+    return (
+        validation_loss,
+        validation_time
+    )
+
 
 # ============================================================
-# TRAIN DDATT
+# TRAINING
 # ============================================================
+
+history = []
+
+best_val = float(
+    "inf"
+)
+
+best_epoch = 0
+
+overall_start = time.perf_counter()
+
 
 print(
     "\n"
@@ -695,21 +639,16 @@ print(
 )
 
 print(
-    "TRAINING DDATT"
+    "TRAINING RECURRENT DDODO"
 )
 
 print(
     "=" * 100
 )
 
-
-ddatt_history = []
-
-best_ddatt_val = float(
-    "inf"
+print(
+    "Overall training timer started."
 )
-
-best_ddatt_epoch = 0
 
 
 for epoch in range(
@@ -721,183 +660,212 @@ for epoch in range(
         f"\nEpoch {epoch}/{EPOCHS}"
     )
 
-
-    train_loss = train_one_epoch(
-        ddatt_model,
-        ddatt_optimizer,
-        train_files,
-        "DDATT"
+    print(
+        "-" * 80
     )
 
 
-    val_loss = evaluate(
-        ddatt_model,
-        validation_files,
-        "DDATT"
+    # --------------------------------------------------------
+    # Training
+    # --------------------------------------------------------
+
+    train_mse, epoch_train_time = train_one_epoch(
+        model,
+        optimizer,
+        train_files
     )
 
+
+    # --------------------------------------------------------
+    # Validation
+    # --------------------------------------------------------
+
+    validation_mse, validation_time = evaluate(
+        model,
+        validation_files
+    )
+
+
+    train_rmse = np.sqrt(
+        train_mse
+    )
+
+    validation_rmse = np.sqrt(
+        validation_mse
+    )
+
+
+    # --------------------------------------------------------
+    # Epoch timing
+    # --------------------------------------------------------
+
+    epoch_total_time = (
+        epoch_train_time
+        +
+        validation_time
+    )
+
+
+    overall_elapsed = (
+        time.perf_counter()
+        -
+        overall_start
+    )
+
+
+    completed_epochs = epoch
+
+    average_epoch_time = (
+        overall_elapsed
+        /
+        completed_epochs
+    )
+
+
+    remaining_epochs = (
+        EPOCHS
+        -
+        completed_epochs
+    )
+
+
+    overall_eta = (
+        remaining_epochs
+        *
+        average_epoch_time
+    )
+
+
+    # --------------------------------------------------------
+    # Print results
+    # --------------------------------------------------------
 
     print(
-        f"DDATT train MSE: "
-        f"{train_loss:.10f}"
+        f"\nDDODO train MSE: "
+        f"{train_mse:.10f}"
     )
 
     print(
-        f"DDATT validation MSE: "
-        f"{val_loss:.10f}"
-    )
-
-
-    ddatt_history.append(
-        {
-            "epoch": epoch,
-            "train_mse": train_loss,
-            "validation_mse": val_loss
-        }
-    )
-
-
-    if val_loss < best_ddatt_val:
-
-        best_ddatt_val = val_loss
-
-        best_ddatt_epoch = epoch
-
-
-        torch.save(
-            ddatt_model.state_dict(),
-            os.path.join(
-                OUTPUT_DIR,
-                "best_ddatt_recurrent_model.pt"
-            )
-        )
-
-
-        print(
-            "  *** New best DDATT model saved ***"
-        )
-
-
-# ============================================================
-# TRAIN DDODO
-# ============================================================
-
-print(
-    "\n"
-    + "=" * 100
-)
-
-print(
-    "TRAINING DDODO"
-)
-
-print(
-    "=" * 100
-)
-
-
-ddodo_history = []
-
-best_ddodo_val = float(
-    "inf"
-)
-
-best_ddodo_epoch = 0
-
-
-for epoch in range(
-    1,
-    EPOCHS + 1
-):
-
-    print(
-        f"\nEpoch {epoch}/{EPOCHS}"
-    )
-
-
-    train_loss = train_one_epoch(
-        ddodo_model,
-        ddodo_optimizer,
-        train_files,
-        "DDODO"
-    )
-
-
-    val_loss = evaluate(
-        ddodo_model,
-        validation_files,
-        "DDODO"
-    )
-
-
-    print(
-        f"DDODO train MSE: "
-        f"{train_loss:.10f}"
+        f"DDODO train RMSE: "
+        f"{train_rmse:.6f} km/h"
     )
 
     print(
         f"DDODO validation MSE: "
-        f"{val_loss:.10f}"
+        f"{validation_mse:.10f}"
+    )
+
+    print(
+        f"DDODO validation RMSE: "
+        f"{validation_rmse:.6f} km/h"
     )
 
 
-    ddodo_history.append(
+    print(
+        "\nEpoch training time:",
+        format_time(
+            epoch_train_time
+        )
+    )
+
+    print(
+        "Epoch validation time:",
+        format_time(
+            validation_time
+        )
+    )
+
+    print(
+        "Total epoch time:",
+        format_time(
+            epoch_total_time
+        )
+    )
+
+    print(
+        "Overall elapsed:",
+        format_time(
+            overall_elapsed
+        )
+    )
+
+    print(
+        "Overall ETA:",
+        format_time(
+            overall_eta
+        )
+    )
+
+
+    # --------------------------------------------------------
+    # Save history
+    # --------------------------------------------------------
+
+    history.append(
         {
             "epoch": epoch,
-            "train_mse": train_loss,
-            "validation_mse": val_loss
+            "train_mse": train_mse,
+            "train_rmse": train_rmse,
+            "validation_mse": validation_mse,
+            "validation_rmse": validation_rmse,
+            "epoch_train_seconds": epoch_train_time,
+            "epoch_validation_seconds": validation_time,
+            "epoch_total_seconds": epoch_total_time,
+            "overall_elapsed_seconds": overall_elapsed,
+            "overall_eta_seconds": overall_eta
         }
     )
 
 
-    if val_loss < best_ddodo_val:
+    # --------------------------------------------------------
+    # Best model
+    # --------------------------------------------------------
 
-        best_ddodo_val = val_loss
+    if validation_mse < best_val:
 
-        best_ddodo_epoch = epoch
+        best_val = validation_mse
 
+        best_epoch = epoch
 
         torch.save(
-            ddodo_model.state_dict(),
+            model.state_dict(),
             os.path.join(
                 OUTPUT_DIR,
                 "best_ddodo_recurrent_model.pt"
             )
         )
 
-
         print(
-            "  *** New best DDODO model saved ***"
+            "\n*** New best DDODO model saved ***"
         )
 
 
 # ============================================================
-# SAVE TRAINING HISTORY
+# FINAL TIME
 # ============================================================
 
-ddatt_history_df = pd.DataFrame(
-    ddatt_history
-)
-
-ddodo_history_df = pd.DataFrame(
-    ddodo_history
-)
-
-
-ddatt_history_df.to_csv(
-    os.path.join(
-        OUTPUT_DIR,
-        "ddatt_training_history.csv"
-    ),
-    index=False
+overall_total_time = (
+    time.perf_counter()
+    -
+    overall_start
 )
 
 
-ddodo_history_df.to_csv(
-    os.path.join(
-        OUTPUT_DIR,
-        "ddodo_training_history.csv"
-    ),
+# ============================================================
+# SAVE HISTORY
+# ============================================================
+
+history_df = pd.DataFrame(
+    history
+)
+
+history_file = os.path.join(
+    OUTPUT_DIR,
+    "ddodo_training_history.csv"
+)
+
+history_df.to_csv(
+    history_file,
     index=False
 )
 
@@ -906,17 +874,20 @@ ddodo_history_df.to_csv(
 # SAVE SUMMARY
 # ============================================================
 
+summary_file = os.path.join(
+    OUTPUT_DIR,
+    "training_summary.txt"
+)
+
+
 with open(
-    os.path.join(
-        OUTPUT_DIR,
-        "training_summary.txt"
-    ),
+    summary_file,
     "w",
     encoding="utf-8"
 ) as f:
 
     f.write(
-        "STEP 68B - RECURRENT AVNET TRAINING\n"
+        "STEP 68B - RECURRENT DDODO ONLY\n"
     )
 
     f.write(
@@ -928,16 +899,24 @@ with open(
         f"Device: {device}\n"
     )
 
+    if torch.cuda.is_available():
+
+        f.write(
+            f"GPU: "
+            f"{torch.cuda.get_device_name(0)}\n"
+        )
+
+        f.write(
+            f"CUDA: "
+            f"{torch.version.cuda}\n"
+        )
+
     f.write(
         f"Learning rate: {LEARNING_RATE}\n"
     )
 
     f.write(
         f"Epochs: {EPOCHS}\n"
-    )
-
-    f.write(
-        "\n"
     )
 
     f.write(
@@ -953,36 +932,31 @@ with open(
     )
 
     f.write(
-        "\n"
+        f"Best epoch: {best_epoch}\n"
     )
 
     f.write(
-        f"Best DDATT validation MSE: "
-        f"{best_ddatt_val}\n"
+        f"Best validation MSE: {best_val}\n"
     )
 
     f.write(
-        f"Best DDATT epoch: "
-        f"{best_ddatt_epoch}\n"
+        f"Best validation RMSE: "
+        f"{np.sqrt(best_val)} km/h\n"
     )
 
     f.write(
-        "\n"
+        f"\nTotal training time: "
+        f"{format_time(overall_total_time)}\n"
     )
 
     f.write(
-        f"Best DDODO validation MSE: "
-        f"{best_ddodo_val}\n"
-    )
-
-    f.write(
-        f"Best DDODO epoch: "
-        f"{best_ddodo_epoch}\n"
+        f"Total training seconds: "
+        f"{overall_total_time:.3f}\n"
     )
 
 
 # ============================================================
-# FINAL     
+# FINAL
 # ============================================================
 
 print(
@@ -991,7 +965,7 @@ print(
 )
 
 print(
-    "STEP 68B TRAINING COMPLETE"
+    "STEP 68B DDODO TRAINING COMPLETE"
 )
 
 print(
@@ -999,29 +973,43 @@ print(
 )
 
 print(
-    "\nBest DDATT epoch:",
-    best_ddatt_epoch
+    "\nBest epoch:",
+    best_epoch
 )
 
 print(
-    "Best DDATT validation MSE:",
-    best_ddatt_val
+    "Best validation MSE:",
+    best_val
 )
 
 print(
-    "\nBest DDODO epoch:",
-    best_ddodo_epoch
+    "Best validation RMSE:",
+    np.sqrt(best_val),
+    "km/h"
 )
 
 print(
-    "Best DDODO validation MSE:",
-    best_ddodo_val
+    "\nTOTAL TRAINING TIME:",
+    format_time(
+        overall_total_time
+    )
 )
 
 print(
-    "\nModels saved in:"
+    "\nModel saved:"
 )
 
 print(
-    OUTPUT_DIR
+    os.path.join(
+        OUTPUT_DIR,
+        "best_ddodo_recurrent_model.pt"
+    )
+)
+
+print(
+    "\nTraining history:"
+)
+
+print(
+    history_file
 )

@@ -1,0 +1,16 @@
+STEP 68B - RECURRENT DDODO ONLY
+================================================================================
+Device: cuda
+GPU: NVIDIA T1000
+CUDA: 13.2
+Learning rate: 0.0001
+Epochs: 100
+Training runs: 1030
+Validation runs: 172
+Test runs: 193
+Best epoch: 67
+Best validation MSE: 464.5983263337655
+Best validation RMSE: 21.554543055554795 km/h
+
+Total training time: 03:20:26
+Total training seconds: 12026.838

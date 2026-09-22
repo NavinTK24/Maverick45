@@ -7,7 +7,7 @@ import pandas as pd
 # PATHS
 # ============================================================
 
-ROOT = r"D:\Maverick\ML2"
+ROOT = r"C:\Users\STUDENT\Desktop\Maverick\Maverick45\ML2"
 
 X_FILE = os.path.join(
     ROOT,
